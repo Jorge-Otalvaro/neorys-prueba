@@ -14,7 +14,7 @@ public class ListMovimientosQueryHandler : IRequestHandler<ListMovimientosQuery,
 
     public async Task<List<MovimientoDto>> Handle(ListMovimientosQuery request, CancellationToken cancellationToken)
     {
-        var movimientos = await _movimientoRepository.ListarTodosLosMovimientos();
+        var movimientos = await _movimientoRepository.ListarTodosLosMovimientos();        
         return _mapper.Map<List<MovimientoDto>>(movimientos);
     }
 }

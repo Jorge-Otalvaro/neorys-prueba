@@ -7,14 +7,10 @@ public class MovimientoRequestValidator : AbstractValidator<MovimientoRegisterCo
 {
     public MovimientoRequestValidator()
     {
-        RuleFor(x => x.NumeroCuenta).NotEmpty().WithMessage("El número de cuenta es obligatorio.");
+        RuleFor(x => x.NumeroCuenta).NotEmpty().WithMessage("El número de cuenta es obligatorio.");        
 
-        RuleFor(x => x.TipoMovimiento).NotEmpty().WithMessage("El tipo de movimiento es obligatorio.");
-
-        RuleFor(x => x.Monto)
+        RuleFor(x => x.Valor)
             .NotEmpty().WithMessage("El monto es obligatorio.")
-            .GreaterThan(0).WithMessage("El monto debe ser mayor que cero.");
-
-        RuleFor(x => x.NumeroCuenta).NotEmpty().WithMessage("El número de cuenta es obligatorio.");            
+            .GreaterThan(0).WithMessage("El monto debe ser mayor que cero.");            
     }
 }

@@ -1,34 +1,184 @@
-﻿using CuentaMovimientosMicroservicio.Domain.Entities;
+﻿using Azure.Core;
+using CuentaMovimientosMicroservicio.Domain.Entities;
+using CuentaMovimientosMicroservicio.Domain.Exceptions;
 using CuentaMovimientosMicroservicio.Domain.Ports;
-using CuentaMovimientosMicroservicio.Infrastructure.Ports;
+using CuentaMovimientosMicroservicio.Domain.Services;
+using CuentaMovimientosMicroservicio.Infrastructure.DataSource;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace CuentaMovimientosMicroservicio.Infrastructure.Adapters;
 
 [Repository]
 public class MovimientoRepository : IMovimientoRepository
 {
-    readonly IRepository<Movimiento> _dataSource;
+    readonly DataContext _context;
 
-    public MovimientoRepository(IRepository<Movimiento> dataSource) => _dataSource = dataSource 
-        ?? throw new ArgumentNullException(nameof(dataSource));
+    public MovimientoRepository(DataContext context) =>
+        (_context) = (context);
+    
+    public async Task<List<Movimiento>> ListarMovimientos(int numeroCuenta)
+    {
+        // Obtiene la cuenta por número de cuenta o lanza una excepción si no existe.
+        Cuenta cuenta = await ObtenerCuentaPorNumero(numeroCuenta);
 
-    public async Task<Movimiento> RegistrarMovimiento(Movimiento movimiento) => await _dataSource.AddAsync(movimiento);
+        // Obtiene los movimientos de la cuenta.
+        List<Movimiento> movimientos = await ObtenerMovimientosDeCuenta(cuenta);
 
-    public async Task<List<Movimiento>> ListarMovimientos(int numeroCuenta) => await _dataSource.WhereAsync(m => m.NumeroCuenta == numeroCuenta);
+        return movimientos;
+    }
 
-    public async Task<Movimiento> ObtenerMovimiento(Guid uid) => await _dataSource.FirstOrDefaultAsync(m => m.Id == uid);
+    private async Task<Cuenta> ObtenerCuentaPorNumero(int numeroCuenta)
+    {
+        Cuenta cuenta = await _context.Cuentas.FirstOrDefaultAsync(c => c.NumeroCuenta == numeroCuenta) ?? throw new InvalidOperationException("La cuenta no existe");        
+        return cuenta;
+    }
+
+    private async Task<List<Movimiento>> ObtenerMovimientosDeCuenta(Cuenta cuenta)
+    {
+        List<Movimiento> movimientos = await _context.Movimientos
+            .Where(m => m.CuentaId == cuenta.Id)
+            .Select(m => new Movimiento
+            {
+                Id = m.Id,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                TipoMovimiento = m.TipoMovimiento,
+                Valor = m.Valor,
+                Saldo = m.Saldo,
+                Fecha = m.Fecha
+            })
+            .ToListAsync();
+
+        return movimientos;
+    }
+
+    public async Task<Movimiento> ObtenerMovimiento(Guid uid)
+    {
+        Movimiento movimiento = await ObtenerCuentaMovimiento(uid);
+
+        return movimiento;
+    }
+
+    public async Task<Movimiento> RegistrarMovimiento(Movimiento movimiento)
+    {
+        Cuenta cuenta = await ObtenerCuentaPorNumero(movimiento.NumeroCuenta);
+        
+        if(movimiento.TipoMovimiento == TipoMovimiento.Debito && movimiento.Valor > cuenta.SaldoInicial)
+        {
+            throw new UnderAgeException("Saldo no disponible");
+        }
+
+        if(movimiento.TipoMovimiento == TipoMovimiento.Credito && movimiento.Valor <= 0)
+        {
+            throw new UnderAgeException("El valor del crédito debe ser mayor a 0");
+        }
+
+        // Inicio de transacción
+        try
+        {
+            //_context.Entry(movimiento).State = EntityState.Detached;
+
+            Movimiento movimientoUpdate = new()
+            {
+                Fecha = DateTime.UtcNow,
+                TipoMovimiento = movimiento.TipoMovimiento,
+                Valor = movimiento.Valor,
+                Saldo = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor,
+                CuentaId = cuenta.Id,
+                NumeroCuenta = cuenta.NumeroCuenta,
+            };
+
+            Cuenta cuentaUpdate = new()
+            {
+                ClienteId = cuenta.ClienteId,
+                Estado = cuenta.Estado,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                SaldoInicial = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor,
+                TipoCuenta = cuenta.TipoCuenta,
+                CreatedOn = cuenta.CreatedOn,
+                LastModifiedOn = DateTime.UtcNow
+            };
+
+            // Actualización de cuenta
+            _context.Entry(cuentaUpdate).State = EntityState.Modified;
+            //_context.Cuentas.Update(cuenta);
+            
+            // Registro del movimiento
+            _context.Entry(movimientoUpdate).State = EntityState.Added;
+            _context.Movimientos.Add(movimientoUpdate);
+
+            await _context.SaveChangesAsync();            
+        }
+        catch (DbUpdateException ex)
+        {
+            var innerException = ex.InnerException;
+            while (innerException != null)
+            {
+                Console.WriteLine(innerException.Message);
+                innerException = innerException.InnerException;
+            }
+            throw;
+        }
+
+        return movimiento;
+    }
 
     public async Task<Movimiento> ActualizarMovimiento(Movimiento movimiento)
     {
-        _dataSource.UpdateAsync(movimiento);
-        return await _dataSource.FirstOrDefaultAsync(m => m.Id == movimiento.Id);
+        Cuenta cuenta = await ObtenerCuentaPorNumero(movimiento.NumeroCuenta);
+        
+        movimiento.CuentaId = cuenta.Id;
+        //movimiento.Saldo = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.Saldo + movimiento.Valor : cuenta.Saldo - movimiento.Valor;
+
+        _context.Entry(movimiento).State = EntityState.Modified;
+        _context.Movimientos.Update(movimiento);
+        await _context.SaveChangesAsync();
+
+        return movimiento;
     }
 
-    public async Task EliminarMovimiento(Guid uid)
+    public async Task EliminarMovimiento(Guid IdMovimiento)
     {
-        var movimiento = await _dataSource.FirstOrDefaultAsync(m => m.Id == uid);
-        _dataSource.DeleteAsync(movimiento);        
+        Movimiento movimiento = await ObtenerCuentaMovimiento(IdMovimiento);
+        _context.Entry(movimiento).State = EntityState.Deleted;
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Movimiento>> ListarTodosLosMovimientos() => await _dataSource.ToListAsync();
+    private async Task<Movimiento> ObtenerCuentaMovimiento(Guid IdMovimiento)
+    {
+        Movimiento movimiento = await _context.Movimientos.Join(_context.Cuentas,
+        movimiento => movimiento.CuentaId,
+        cuenta => cuenta.Id,
+        (movimiento, cuenta) => new Movimiento
+        {
+            Id = movimiento.Id,
+            NumeroCuenta = cuenta.NumeroCuenta,
+            TipoMovimiento = movimiento.TipoMovimiento,
+            Valor = movimiento.Valor,
+            Saldo = movimiento.Saldo,
+            Fecha = movimiento.Fecha,
+        }).FirstOrDefaultAsync(m => m.Id == IdMovimiento) ?? throw new InvalidOperationException("El movimiento no existe");
+
+        return movimiento;
+    }
+
+    public async Task<List<Movimiento>> ListarTodosLosMovimientos()
+    {
+        List<Movimiento> movimientos = await _context.Movimientos.Join(_context.Cuentas,
+            movimiento => movimiento.CuentaId,
+            cuenta => cuenta.Id,
+            (movimiento, cuenta) => new Movimiento
+            {
+                Id = movimiento.Id,
+                CuentaId = cuenta.Id,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                TipoMovimiento = movimiento.TipoMovimiento,
+                Valor = movimiento.Valor,
+                Saldo = movimiento.Saldo,
+                Fecha = movimiento.Fecha,
+            }).ToListAsync();
+
+        return movimientos;
+    }
 }

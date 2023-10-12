@@ -3,9 +3,7 @@
 namespace CuentaMovimientosMicroservicio.Application.Movimientos;
 
 public record MovimientoRegisterCommand(
-    int NumeroCuenta,
-    decimal Valor,
-    DateTime Fecha,
     string TipoMovimiento,
-    decimal Monto
+    int NumeroCuenta,
+    decimal Valor
 ) : IRequest;

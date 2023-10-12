@@ -13,7 +13,7 @@ public class ListaMovimientoQueryHandler : IRequestHandler<ListaMovimientoQuery,
     public ListaMovimientoQueryHandler(IMapper mapper, RecordMovimientoService movimientoRepository) => (_mapper, _movimientoRepository) = (mapper, movimientoRepository);
 
     public async Task<List<MovimientoDto>> Handle(ListaMovimientoQuery request, CancellationToken cancellationToken)
-    {        
+    {
         var movimientos = await _movimientoRepository.ListarMovimientos(request.NumeroCuenta);
         return _mapper.Map<List<MovimientoDto>>(movimientos);
     }

@@ -1,0 +1,465 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "CuentaMovimientosMicroservicio.Api",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/cuentas": {
+            "get": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CuentaDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CuentaRegisterCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CuentaDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cuentas/{numeroCuenta}": {
+            "get": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "numeroCuenta",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CuentaDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "numeroCuenta",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CuentaUpdateCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CuentaDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cuentas/{id}": {
+            "delete": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CuentaDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/movimientos": {
+            "get": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MovimientoDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovimientoRegisterCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovimientoDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/movimientos/{id}": {
+            "get": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovimientoDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovimientoUpdateCommand"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovimientoDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovimientoDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lista-movimientos/{movimiento}": {
+            "get": {
+                "tags": ["CuentaMovimientosMicroservicio.Api"],
+                "parameters": [
+                    {
+                        "name": "movimiento",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MovimientoDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CuentaDto": {
+                "type": "object",
+                "properties": {
+                    "numeroCuenta": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "tipoCuenta": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "saldoInicial": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "estado": {
+                        "type": "boolean"
+                    },
+                    "cliente": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CuentaRegisterCommand": {
+                "type": "object",
+                "properties": {
+                    "numeroCuenta": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "tipoCuenta": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "saldoInicial": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "clienteId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CuentaUpdateCommand": {
+                "type": "object",
+                "properties": {
+                    "numeroCuenta": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "estado": {
+                        "type": "boolean"
+                    },
+                    "tipoCuenta": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MovimientoDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "numeroCuenta": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "fecha": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "tipoMovimiento": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "monto": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MovimientoRegisterCommand": {
+                "type": "object",
+                "properties": {
+                    "numeroCuenta": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "fecha": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "tipoMovimiento": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "monto": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MovimientoUpdateCommand": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "numeroCuenta": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "valor": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "tipoMovimiento": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "fecha": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    }
+}

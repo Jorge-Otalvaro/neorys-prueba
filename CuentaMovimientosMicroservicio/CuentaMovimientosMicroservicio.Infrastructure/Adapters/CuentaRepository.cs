@@ -88,7 +88,7 @@ public class CuentaRepository : ICuentaRepository
         cuentaExistente.LastModifiedOn = DateTime.UtcNow;
 
         _context.Entry(cuentaExistente).State = EntityState.Modified;        
-        await _context.SaveChangesAsync();               
+        await _context.SaveChangesAsync();
 
         return cuentaExistente;
     }
@@ -97,7 +97,7 @@ public class CuentaRepository : ICuentaRepository
     {
         Cuenta cuenta = await _context.Cuentas.FirstOrDefaultAsync(c => c.Id == IdCuenta) ?? throw new InvalidOperationException("La cuenta no existe");
         _context.Entry(cuenta).State = EntityState.Deleted;
-        await _context.SaveChangesAsync();        
+        await _context.SaveChangesAsync();
     }
 
     public async Task<Cuenta> ConsultarCuenta(Guid IdCuenta)
