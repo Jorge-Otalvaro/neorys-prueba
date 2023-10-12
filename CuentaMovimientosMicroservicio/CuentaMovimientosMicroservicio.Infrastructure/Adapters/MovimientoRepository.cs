@@ -72,7 +72,7 @@ public class MovimientoRepository : IMovimientoRepository
         
         try
         {
-            Movimiento movimientoUpdate = new()
+            Movimiento movimientoCreada = new()
             {
                 Fecha = DateTime.UtcNow,
                 TipoMovimiento = movimiento.TipoMovimiento,
@@ -82,8 +82,8 @@ public class MovimientoRepository : IMovimientoRepository
             };
 
             // Registro del movimiento
-            _context.Entry(movimientoUpdate).State = EntityState.Added;
-            _context.Movimientos.Add(movimientoUpdate);
+            _context.Entry(movimientoCreada).State = EntityState.Added;
+            _context.Movimientos.Add(movimientoCreada);
 
             cuenta.SaldoInicial = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor;
 
@@ -105,14 +105,57 @@ public class MovimientoRepository : IMovimientoRepository
 
     public async Task<Movimiento> ActualizarMovimiento(Movimiento movimiento)
     {
-        Cuenta cuenta = await ObtenerCuentaPorNumero(movimiento.NumeroCuenta);
-        
-        movimiento.CuentaId = cuenta.Id;
-        //movimiento.Saldo = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.Saldo + movimiento.Valor : cuenta.Saldo - movimiento.Valor;
+        Movimiento movi = await ObtenerCuentaMovimiento(movimiento.Id);
 
-        _context.Entry(movimiento).State = EntityState.Modified;
-        _context.Movimientos.Update(movimiento);
-        await _context.SaveChangesAsync();
+        if(movi.TipoMovimiento == TipoMovimiento.Debito && movimiento.Valor > movi.Saldo)
+        {
+            throw new UnderAgeException("Saldo no disponible");
+        }
+
+        if(movi.TipoMovimiento == TipoMovimiento.Credito && movimiento.Valor <= 0)
+        {
+            throw new UnderAgeException("El valor del crédito debe ser mayor a 0");
+        }
+
+        Cuenta cuenta = await ObtenerCuentaPorNumero(movimiento.NumeroCuenta);
+
+        cuenta.SaldoInicial = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor;        
+        cuenta.LastModifiedOn = DateTime.UtcNow;
+        
+        movi.Valor = movimiento.Valor;
+        movi.Saldo = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor;
+        movi.LastModifiedOn = DateTime.UtcNow;
+        movi.CuentaId = cuenta.Id;
+
+        _context.Entry(movi).State = EntityState.Modified;
+       
+        Movimiento nuevoMovimiento = new()
+        {
+            Fecha = DateTime.UtcNow,
+            TipoMovimiento = movimiento.TipoMovimiento,
+            Valor = movimiento.Valor,
+            Saldo = cuenta.SaldoInicial,
+            CuentaId = cuenta.Id,
+        };
+
+        // Registro del movimiento
+        _context.Entry(nuevoMovimiento).State = EntityState.Added;
+        _context.Movimientos.Add(nuevoMovimiento);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex)
+        {
+            var innerException = ex.InnerException;
+            while (innerException != null)
+            {
+                Console.WriteLine(innerException.Message);
+                innerException = innerException.InnerException;
+            }
+            throw;
+        }
 
         return movimiento;
     }

@@ -6,6 +6,5 @@ public record MovimientoUpdateCommand(
     Guid Id,
     int NumeroCuenta,
     decimal Valor,
-    string TipoMovimiento,
-    DateTime Fecha
+    string TipoMovimiento    
 ) : IRequest;

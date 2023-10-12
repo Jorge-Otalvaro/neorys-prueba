@@ -20,10 +20,9 @@ public static class RouteApi
         routeHandler.MapGet("/movimientos/{id}", async (IMediator mediator, Guid id) => await mediator.Send(new MovimientoQuery(id))).Produces(StatusCodes.Status200OK, typeof(MovimientoDto));
         routeHandler.MapGet("/lista-movimientos/{numeroCuenta}", async (IMediator mediator, int numeroCuenta) => await mediator.Send(new ListaMovimientoQuery(numeroCuenta))).Produces(StatusCodes.Status200OK, typeof(List<MovimientoDto>));
         routeHandler.MapPost("/movimientos", async (IMediator mediator, [Validate] MovimientoRegisterCommand movimiento) => await mediator.Send(movimiento)).Produces(StatusCodes.Status200OK, typeof(MovimientoDto));
-        routeHandler.MapDelete("/movimientos/{id}", async (IMediator mediator, Guid id) => await mediator.Send(new MovimientoDeleteCommand(id))).Produces(StatusCodes.Status200OK, typeof(MovimientoDto));
-
         routeHandler.MapPut("/movimientos/{id}", async (IMediator mediator, Guid id, [Validate] MovimientoUpdateCommand movimiento) => await mediator.Send(movimiento with { Id = id })).Produces(StatusCodes.Status200OK, typeof(MovimientoDto));
-        
+        routeHandler.MapDelete("/movimientos/{id}", async (IMediator mediator, Guid id) => await mediator.Send(new MovimientoDeleteCommand(id))).Produces(StatusCodes.Status200OK, typeof(MovimientoDto));
+                
         return (RouteGroupBuilder)routeHandler;
     }
 }
