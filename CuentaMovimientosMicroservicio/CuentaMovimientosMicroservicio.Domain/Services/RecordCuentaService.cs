@@ -27,21 +27,21 @@ public class RecordCuentaService
     }
 
     // Crear Cuenta
-    public async Task<bool> RegistrarCuenta(Cuenta cuenta, CancellationToken? cancellationToken = null)
-    {
+    public async Task<Cuenta> RegistrarCuenta(Cuenta cuenta, CancellationToken? cancellationToken = null)
+    {        
         CancellationToken token = cancellationToken ?? new CancellationTokenSource().Token;
-        await _cuentaRepository.CrearCuenta(cuenta);
+        var cuentaRegistrada = await _cuentaRepository.CrearCuenta(cuenta);        
         await _unitOfWork.SaveAsync(token);
-        return true;
+        return cuentaRegistrada;
     }
 
     // Actualizar Cuenta
-    public async Task<bool> ActualizarCuenta(Cuenta cuenta, CancellationToken? cancellationToken = null)
+    public async Task<Cuenta> ActualizarCuenta(Cuenta cuenta, CancellationToken? cancellationToken = null)
     {
         CancellationToken token = cancellationToken ?? new CancellationTokenSource().Token;
-        await _cuentaRepository.ActualizarCuenta(cuenta);
+        Cuenta cuentaActualizada = await _cuentaRepository.ActualizarCuenta(cuenta);
         await _unitOfWork.SaveAsync(token);
-        return true;
+        return cuentaActualizada;
     }
 
     // Eliminar Cuenta

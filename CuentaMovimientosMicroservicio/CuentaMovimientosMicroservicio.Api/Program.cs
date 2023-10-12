@@ -1,4 +1,5 @@
 using CuentaMovimientosMicroservicio.Api.ApiHandlers;
+using CuentaMovimientosMicroservicio.Api.Automapper;
 using CuentaMovimientosMicroservicio.Api.Filters;
 using CuentaMovimientosMicroservicio.Api.Middleware;
 using CuentaMovimientosMicroservicio.Infrastructure.DataSource;
@@ -21,8 +22,15 @@ var config = builder.Configuration;
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
 
 builder.Services.AddDbContext<DataContext>(opts =>
-{    
-    opts.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+{
+    opts.UseSqlServer(config.GetConnectionString("DefaultConnection"), options =>
+    {
+        options.UseRelationalNulls();
+        options.EnableRetryOnFailure();        
+        options.CommandTimeout(60);
+        options.EnableRetryOnFailure(5, TimeSpan.FromSeconds(2), null);        
+        options.MigrationsAssembly(typeof(DataContext).Assembly.FullName);
+    });
 });
 
 builder.Services.AddHealthChecks()
@@ -36,7 +44,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(Assembly.Load("CuentaMovimientosMicroservicio.Application"), typeof(Program).Assembly);
-builder.Services.AddAutoMapper(Assembly.Load("CuentaMovimientosMicroservicio.Application"));
+builder.Services.AddAutoMapper(typeof(EntityProfile));
 
 builder.Host.UseSerilog((_, loggerConfiguration) =>
     loggerConfiguration

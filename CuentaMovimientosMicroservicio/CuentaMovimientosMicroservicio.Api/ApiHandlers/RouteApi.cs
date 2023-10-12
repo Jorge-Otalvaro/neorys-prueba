@@ -13,7 +13,7 @@ public static class RouteApi
         routeHandler.MapGet("/cuentas", async (IMediator mediator) => await mediator.Send(new ListCuentasQuery())).Produces(StatusCodes.Status200OK, typeof(List<CuentaDto>));        
         routeHandler.MapGet("/cuentas/{numeroCuenta}", async (IMediator mediator, int numeroCuenta) => await mediator.Send(new CuentaQuery(numeroCuenta))).Produces(StatusCodes.Status200OK, typeof(CuentaDto));        
         routeHandler.MapPost("/cuentas", async (IMediator mediator, [Validate] CuentaRegisterCommand cuenta) => await mediator.Send(cuenta)).Produces(StatusCodes.Status200OK, typeof(CuentaDto));        
-        routeHandler.MapPut("/cuentas/{numeroCuenta}", async (IMediator mediator, int numeroCuenta, [Validate] CuentaUpdateCommand cuenta) => await mediator.Send(cuenta with { NumeroCuenta = numeroCuenta })).Produces(StatusCodes.Status200OK, typeof(CuentaDto));
+        routeHandler.MapPut("/cuentas/{numeroCuenta}", async (IMediator mediator, int numeroCuenta, [Validate] CuentaUpdateCommand cuenta) => await mediator.Send(cuenta)).Produces(StatusCodes.Status200OK, typeof(CuentaDto));
         routeHandler.MapDelete("/cuentas/{id}", async (IMediator mediator, Guid id) => await mediator.Send(new CuentaDeleteCommand(id))).Produces(StatusCodes.Status200OK, typeof(CuentaDto));
                 
         routeHandler.MapGet("/movimientos", async (IMediator mediator) => await mediator.Send(new ListMovimientosQuery())).Produces(StatusCodes.Status200OK, typeof(List<MovimientoDto>));                

@@ -10,6 +10,7 @@ public class DataContext : DbContext
 
     public DbSet<Cuenta> Cuentas { get; set; }
     public DbSet<Movimiento> Movimientos { get; set; }
+    public DbSet<Persona> Personas { get; set; }
 
     public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base(options)
     {
@@ -51,16 +52,7 @@ public class DataContext : DbContext
                 entity.Property(e => e.Fecha).IsRequired();                
             });
 
-        // ghost properties for audit
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            var t = entityType.ClrType;
-            if (typeof(DomainEntity).IsAssignableFrom(t))
-            {
-                modelBuilder.Entity(entityType.Name).Property<DateTime>("CreatedOn");
-                modelBuilder.Entity(entityType.Name).Property<DateTime>("LastModifiedOn");
-            }
-        }
+        modelBuilder.Entity<Persona>();
 
         base.OnModelCreating(modelBuilder);
     }
