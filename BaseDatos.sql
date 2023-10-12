@@ -36,15 +36,14 @@ CREATE TABLE Cuentas (
 
 -- Crear la tabla Movimientos
 CREATE TABLE Movimientos (
-    Id uniqueidentifier PRIMARY KEY DEFAULT NEWID(),    
-    MovimientoId uniqueidentifier,
+    Id uniqueidentifier PRIMARY KEY DEFAULT NEWID(),
     Fecha DATETIME,
     TipoMovimiento VARCHAR(20),
     Valor DECIMAL(10, 2),
     Saldo DECIMAL(10, 2),
-	CuentaId uniqueidentifier,
+    CuentaId uniqueidentifier,
     FOREIGN KEY (CuentaId) REFERENCES Cuentas (Id),
-	CreatedOn DATETIME DEFAULT GETDATE(),
+    CreatedOn DATETIME DEFAULT GETDATE(),
     LastModifiedOn DATETIME
 );
 

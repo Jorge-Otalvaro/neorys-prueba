@@ -9,7 +9,7 @@ public class CuentaEntityTypeConfiguration : IEntityTypeConfiguration<Cuenta>
     // Si necesitamos db constrains, este es el lugar 
     public void Configure(EntityTypeBuilder<Cuenta> builder)
     {
-        builder.ToTable("Cuenta");
+        builder.ToTable("Cuentas");
 
         builder.HasKey(x => x.Id);
 

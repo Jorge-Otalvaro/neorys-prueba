@@ -15,8 +15,8 @@ public class Movimiento : DomainEntity
     public Guid CuentaId { get; set; }
 
     [NotMapped]
-    public int NumeroCuenta { get; set; }
-        
+    public int NumeroCuenta { get; set; }    
+
     public Movimiento()
     {
         CreatedOn = DateTime.UtcNow;

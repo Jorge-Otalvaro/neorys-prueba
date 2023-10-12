@@ -8,14 +8,14 @@ public class MovimientoEntityTypeConfiguration : IEntityTypeConfiguration<Movimi
 {
     public void Configure(EntityTypeBuilder<Movimiento> builder)
     {
-        builder.ToTable("Movimiento");
+        builder.ToTable("Movimientos");
 
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
             .HasColumnName("Id")
             .ValueGeneratedOnAdd();
-        
+                
         builder.Property(x => x.TipoMovimiento)
             .HasColumnName("TipoMovimiento")
             .IsRequired();       
@@ -32,8 +32,8 @@ public class MovimientoEntityTypeConfiguration : IEntityTypeConfiguration<Movimi
             .HasColumnName("Saldo")
             .IsRequired();
 
-        builder.Property(x => x.NumeroCuenta)
-            .HasColumnName("NumeroCuenta")
-            .IsRequired();               
+        builder.Property(x => x.CuentaId)
+            .HasColumnName("CuentaId")
+            .IsRequired();
     }
 }

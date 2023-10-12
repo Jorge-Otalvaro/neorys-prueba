@@ -1,10 +1,10 @@
 ﻿namespace CuentaMovimientosMicroservicio.Domain.Dtos;
 
 public record MovimientoDto(
-    Guid Id, 
-    int NumeroCuenta, 
+    Guid Id,
     decimal Valor, 
     decimal Saldo,
     string TipoMovimiento,
-    DateTime Fecha
+    DateTime Fecha,
+    int NumeroCuenta 
 );

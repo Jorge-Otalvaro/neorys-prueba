@@ -1,12 +1,8 @@
-﻿using Azure.Core;
-using CuentaMovimientosMicroservicio.Domain.Entities;
+﻿using CuentaMovimientosMicroservicio.Domain.Entities;
 using CuentaMovimientosMicroservicio.Domain.Exceptions;
 using CuentaMovimientosMicroservicio.Domain.Ports;
-using CuentaMovimientosMicroservicio.Domain.Services;
 using CuentaMovimientosMicroservicio.Infrastructure.DataSource;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 
 namespace CuentaMovimientosMicroservicio.Infrastructure.Adapters;
 
@@ -73,42 +69,25 @@ public class MovimientoRepository : IMovimientoRepository
         {
             throw new UnderAgeException("El valor del crédito debe ser mayor a 0");
         }
-
-        // Inicio de transacción
+        
         try
         {
-            //_context.Entry(movimiento).State = EntityState.Detached;
-
             Movimiento movimientoUpdate = new()
             {
                 Fecha = DateTime.UtcNow,
                 TipoMovimiento = movimiento.TipoMovimiento,
                 Valor = movimiento.Valor,
                 Saldo = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor,
-                CuentaId = cuenta.Id,
-                NumeroCuenta = cuenta.NumeroCuenta,
+                CuentaId = cuenta.Id,                
             };
 
-            Cuenta cuentaUpdate = new()
-            {
-                ClienteId = cuenta.ClienteId,
-                Estado = cuenta.Estado,
-                NumeroCuenta = cuenta.NumeroCuenta,
-                SaldoInicial = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor,
-                TipoCuenta = cuenta.TipoCuenta,
-                CreatedOn = cuenta.CreatedOn,
-                LastModifiedOn = DateTime.UtcNow
-            };
-
-            // Actualización de cuenta
-            _context.Entry(cuentaUpdate).State = EntityState.Modified;
-            //_context.Cuentas.Update(cuenta);
-            
             // Registro del movimiento
             _context.Entry(movimientoUpdate).State = EntityState.Added;
             _context.Movimientos.Add(movimientoUpdate);
 
-            await _context.SaveChangesAsync();            
+            cuenta.SaldoInicial = movimiento.TipoMovimiento == TipoMovimiento.Credito ? cuenta.SaldoInicial + movimiento.Valor : cuenta.SaldoInicial - movimiento.Valor;
+
+            await _context.SaveChangesAsync();
         }
         catch (DbUpdateException ex)
         {
@@ -153,8 +132,7 @@ public class MovimientoRepository : IMovimientoRepository
         (movimiento, cuenta) => new Movimiento
         {
             Id = movimiento.Id,
-            NumeroCuenta = cuenta.NumeroCuenta,
-            TipoMovimiento = movimiento.TipoMovimiento,
+            NumeroCuenta = cuenta.NumeroCuenta,            
             Valor = movimiento.Valor,
             Saldo = movimiento.Saldo,
             Fecha = movimiento.Fecha,
@@ -165,20 +143,32 @@ public class MovimientoRepository : IMovimientoRepository
 
     public async Task<List<Movimiento>> ListarTodosLosMovimientos()
     {
-        List<Movimiento> movimientos = await _context.Movimientos.Join(_context.Cuentas,
+        try
+        {
+            List<Movimiento> movimientos = await _context.Movimientos.Join(_context.Cuentas,
             movimiento => movimiento.CuentaId,
             cuenta => cuenta.Id,
             (movimiento, cuenta) => new Movimiento
             {
                 Id = movimiento.Id,
                 CuentaId = cuenta.Id,
-                NumeroCuenta = cuenta.NumeroCuenta,
-                TipoMovimiento = movimiento.TipoMovimiento,
+                NumeroCuenta = cuenta.NumeroCuenta,                
                 Valor = movimiento.Valor,
                 Saldo = movimiento.Saldo,
                 Fecha = movimiento.Fecha,
             }).ToListAsync();
 
-        return movimientos;
+            return movimientos;
+        }
+        catch (DbUpdateException ex)
+        {
+            var innerException = ex.InnerException;
+            while (innerException != null)
+            {
+                Console.WriteLine(innerException.Message);
+                innerException = innerException.InnerException;
+            }
+            throw;
+        }        
     }
 }

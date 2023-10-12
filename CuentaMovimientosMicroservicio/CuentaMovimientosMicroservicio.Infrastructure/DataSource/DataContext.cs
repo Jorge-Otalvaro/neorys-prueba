@@ -15,8 +15,12 @@ public class DataContext : DbContext
     public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base(options)
     {
         _config = config;
-    }    
-    
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.EnableSensitiveDataLogging();        
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
