@@ -1,0 +1,1357 @@
+{
+	"info": {
+		"_postman_id": "e3a2c443-ad48-4f5c-805d-ff7ae4a68f41",
+		"name": "ApiCuentaMovimientosMicroservicio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5398473",
+		"_collection_link": "https://warped-station-612522.postman.co/workspace/test~b9ba6653-583b-4721-9115-cda8d9d88da5/collection/5398473-e3a2c443-ad48-4f5c-805d-ff7ae4a68f41?action=share&source=collection_link&creator=5398473"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "cuentas",
+					"item": [
+						{
+							"name": "{numeroCuenta}",
+							"item": [
+								{
+									"name": "/api/cuentas/:numeroCuenta",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:numeroCuenta",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":numeroCuenta"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "cuentas"
+												},
+												{
+													"key": "numeroCuenta",
+													"value": "478758"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/cuentas/:numeroCuenta",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"cuentas",
+														":numeroCuenta"
+													],
+													"variable": [
+														{
+															"key": "numeroCuenta"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n}"
+										}
+									]
+								},
+								{
+									"name": "/api/cuentas/:numeroCuenta",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"numeroCuenta\": 0,\n  \"estado\": true, // TRUE OR FALSE\n  \"tipoCuenta\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:numeroCuenta",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":numeroCuenta"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "cuentas"
+												},
+												{
+													"key": "numeroCuenta",
+													"value": "478758"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"value\": \"reference #/components/schemas/CuentaUpdateCommand not found in the OpenAPI spec\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/cuentas/:numeroCuenta",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"cuentas",
+														":numeroCuenta"
+													],
+													"variable": [
+														{
+															"key": "numeroCuenta"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "/api/cuentas/:id",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "cuentas"
+												},
+												{
+													"key": "id",
+													"value": "2789F003-15EF-4B04-A1F3-C65CCEAF1B79"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/cuentas/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"cuentas",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "/api/cuentas",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "cuentas"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/cuentas",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"cuentas"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n  },\n  {\n    \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "/api/cuentas",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"numeroCuenta\": \"string\",\n  \"tipoCuenta\": \"string\",\n  \"saldoInicial\": 0,\n  \"clienteId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "cuentas"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"value\": \"reference #/components/schemas/CuentaRegisterCommand not found in the OpenAPI spec\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/cuentas",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"cuentas"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"value\": \"reference #/components/schemas/CuentaDto not found in the OpenAPI spec\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "movimientos",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "/api/movimientos/:id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "movimientos"
+												},
+												{
+													"key": "id",
+													"value": "f20ac589-8f50-4f4a-1bc0-08dbcb641dae"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movimientos/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movimientos",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<uuid>\",\n  \"numeroCuenta\": \"<integer>\",\n  \"valor\": \"<double>\",\n  \"fecha\": \"<dateTime>\",\n  \"tipoMovimiento\": \"<string>\",\n  \"monto\": \"<double>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "/api/movimientos/:id",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"FDAF0449-0787-4595-8944-08DBCB6B8159\",\n  \"tipoMovimiento\": \"Debito\",\n  \"numeroCuenta\": 496825,\n  \"valor\": 100\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "movimientos"
+												},
+												{
+													"key": "id",
+													"value": "FDAF0449-0787-4595-8944-08DBCB6B8159"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<uuid>\",\n  \"numeroCuenta\": \"<integer>\",\n  \"valor\": \"<double>\",\n  \"tipoMovimiento\": \"<string>\",\n  \"fecha\": \"<dateTime>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/movimientos/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movimientos",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<uuid>\",\n  \"numeroCuenta\": \"<integer>\",\n  \"valor\": \"<double>\",\n  \"fecha\": \"<dateTime>\",\n  \"tipoMovimiento\": \"<string>\",\n  \"monto\": \"<double>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "/api/movimientos/:id",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "movimientos"
+												},
+												{
+													"key": "id",
+													"value": "8c4d73bc-1be0-437d-ad41-08dbcb5c6806"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/movimientos/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"movimientos",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<uuid>\",\n  \"numeroCuenta\": \"<integer>\",\n  \"valor\": \"<double>\",\n  \"fecha\": \"<dateTime>\",\n  \"tipoMovimiento\": \"<string>\",\n  \"monto\": \"<double>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "/api/movimientos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "movimientos"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/movimientos",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movimientos"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"value\": \"reference #/components/schemas/MovimientoDto not found in the OpenAPI spec\"\n  },\n  {\n    \"value\": \"reference #/components/schemas/MovimientoDto not found in the OpenAPI spec\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "/api/movimientos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tipoMovimiento\": \"Debito\",\n  \"numeroCuenta\": 496825,\n  \"valor\": 10000\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "movimientos"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"value\": \"reference #/components/schemas/MovimientoRegisterCommand not found in the OpenAPI spec\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/movimientos",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"movimientos"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"value\": \"reference #/components/schemas/MovimientoDto not found in the OpenAPI spec\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "lista-movimientos",
+					"item": [
+						{
+							"name": "{movimiento}",
+							"item": [
+								{
+									"name": "/api/lista-movimientos/:numeroCuenta",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:numeroCuenta",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":numeroCuenta"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "lista-movimientos"
+												},
+												{
+													"key": "numeroCuenta",
+													"value": "478758"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/lista-movimientos/:movimiento",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"lista-movimientos",
+														":movimiento"
+													],
+													"variable": [
+														{
+															"key": "movimiento"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"numeroCuenta\": \"<integer>\",\n    \"valor\": \"<double>\",\n    \"fecha\": \"<dateTime>\",\n    \"tipoMovimiento\": \"<string>\",\n    \"monto\": \"<double>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"numeroCuenta\": \"<integer>\",\n    \"valor\": \"<double>\",\n    \"fecha\": \"<dateTime>\",\n    \"tipoMovimiento\": \"<string>\",\n    \"monto\": \"<double>\"\n  }\n]"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "clientes",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "/api/clientes/:id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "clientes"
+												},
+												{
+													"key": "id",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clientes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clientes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<uuid>\",\n  \"nombre\": \"<string>\",\n  \"genero\": \"<string>\",\n  \"edad\": \"<integer>\",\n  \"identificacion\": \"<string>\",\n  \"direccion\": \"<string>\",\n  \"telefono\": \"<string>\",\n  \"contrasena\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "/api/clientes/:id",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"nombre\": \"string\",\n  \"apellido\": \"string\",\n  \"direccion\": \"string\",\n  \"telefono\": \"string\",\n  \"email\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "clientes"
+												},
+												{
+													"key": "id",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<uuid>\",\n  \"nombre\": \"<string>\",\n  \"apellido\": \"<string>\",\n  \"direccion\": \"<string>\",\n  \"telefono\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clientes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clientes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<uuid>\",\n  \"nombre\": \"<string>\",\n  \"genero\": \"<string>\",\n  \"edad\": \"<integer>\",\n  \"identificacion\": \"<string>\",\n  \"direccion\": \"<string>\",\n  \"telefono\": \"<string>\",\n  \"contrasena\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "/api/clientes/:id",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://{{servidor}}:{{puerto}}/api/:metodo/:id",
+											"protocol": "http",
+											"host": [
+												"{{servidor}}"
+											],
+											"port": "{{puerto}}",
+											"path": [
+												"api",
+												":metodo",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "metodo",
+													"value": "clientes"
+												},
+												{
+													"key": "id",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/clientes/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clientes",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "/api/clientes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "clientes"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/clientes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clientes"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"nombre\": \"<string>\",\n    \"genero\": \"<string>\",\n    \"edad\": \"<integer>\",\n    \"identificacion\": \"<string>\",\n    \"direccion\": \"<string>\",\n    \"telefono\": \"<string>\",\n    \"contrasena\": \"<string>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"nombre\": \"<string>\",\n    \"genero\": \"<string>\",\n    \"edad\": \"<integer>\",\n    \"identificacion\": \"<string>\",\n    \"direccion\": \"<string>\",\n    \"telefono\": \"<string>\",\n    \"contrasena\": \"<string>\"\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "/api/clientes",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nombre\": \"string\",\n  \"genero\": \"string\",\n  \"edad\": 0,\n  \"identificacion\": \"string\",\n  \"direccion\": \"string\",\n  \"telefono\": \"string\",\n  \"contrasena\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{servidor}}:{{puerto}}/api/:metodo",
+									"protocol": "http",
+									"host": [
+										"{{servidor}}"
+									],
+									"port": "{{puerto}}",
+									"path": [
+										"api",
+										":metodo"
+									],
+									"variable": [
+										{
+											"key": "metodo",
+											"value": "clientes"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nombre\": \"<string>\",\n  \"genero\": \"<string>\",\n  \"edad\": \"<integer>\",\n  \"identificacion\": \"<string>\",\n  \"direccion\": \"<string>\",\n  \"telefono\": \"<string>\",\n  \"contrasena\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/clientes",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clientes"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
