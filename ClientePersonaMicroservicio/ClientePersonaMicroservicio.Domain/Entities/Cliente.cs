@@ -2,7 +2,6 @@
 
 public class Cliente : Persona
 {
-    public int ClienteId { get; set; }
     public required string Contrasena { get; set; }
-    public bool Estado { get; set; }
+    public string Estado { get; set; }    
 }

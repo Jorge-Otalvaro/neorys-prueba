@@ -13,7 +13,7 @@ using Serilog;
 using Serilog.Debugging;
 using Serilog.Sinks.Elasticsearch;
 using Prometheus;
-
+using ClientePersonaMicroservicio.Api.Automapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -22,8 +22,16 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Si
 
 builder.Services.AddDbContext<DataContext>(opts =>
 {
-    opts.UseSqlServer(config.GetConnectionString("db"));
+    opts.UseSqlServer(config.GetConnectionString("DefaultConnection"), options =>
+    {
+        options.UseRelationalNulls();
+        options.EnableRetryOnFailure();
+        options.CommandTimeout(60);
+        options.EnableRetryOnFailure(5, TimeSpan.FromSeconds(2), null);
+        options.MigrationsAssembly(typeof(DataContext).Assembly.FullName);
+    });
 });
+
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<DataContext>()
@@ -35,6 +43,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(Assembly.Load("ClientePersonaMicroservicio.Application"), typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(EntityProfile));
 
 builder.Host.UseSerilog((_, loggerConfiguration) =>
     loggerConfiguration
